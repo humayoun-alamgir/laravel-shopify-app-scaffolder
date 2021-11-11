@@ -1,0 +1,87 @@
+const mix = require('laravel-mix');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path')
+
+/*
+ |--------------------------------------------------------------------------
+ | Mix Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Mix provides a clean, fluent API for defining some Webpack build steps
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for the application as well as bundling up all the JS files.
+ |
+ */
+
+mix.webpackConfig({
+    resolve: {
+        extensions: [
+            '.js', '.json', '.vue', '.ts', '.tsx',
+        ],
+        alias: {
+            '@': path.resolve(__dirname, 'resources/js'),
+            '@admin': path.resolve(__dirname, 'resources/js/admin'),
+            // Add your other aliases here.
+        },
+    },
+    module: {
+        rules: [
+            {
+                test: /\.svg$/,
+                use: 'raw-loader',
+            },
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                    transpileOnly: true,
+                    appendTsSuffixTo: [
+                        /\.vue$/
+                    ],
+                }
+            },
+        ],
+    },
+    plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            typescript: {
+                extensions: {
+                    vue: true,
+                },
+            },
+            eslint: {
+                files: [
+                    path.resolve(__dirname, 'resources/js') + '/**/*.ts',
+                ],
+                options: {
+                    fix: true,
+                },
+            }
+        })
+    ]
+})
+
+mix.js('resources/js/admin/index.ts', 'public/js/admin.js');
+// mix.js('resources/js/your/extra/index.ts', 'public/js/your-extra.js');
+
+Mix.listen('configReady', function (config) {
+    const rules = config.module.rules;
+    // If mix updates, you may need to change these regexs to match that of the
+    // default SVG loader(s)
+    const targetRegex1 = /(\.(woff2?|ttf|eot|otf)$|font.*\.svg$)/;
+    const targetRegex2 = /(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/;
+
+    for (let rule of rules) {
+        if (rule.loader == 'ts-loader') {
+            rule.options.transpileOnly = true;
+        }
+    }
+    for (let rule of rules) {
+        if (rule.test.toString() == targetRegex1.toString()
+            || rule.test.toString() == targetRegex2.toString()) {
+            rule.exclude = /\.svg$/;
+            break;
+        }
+    }
+});

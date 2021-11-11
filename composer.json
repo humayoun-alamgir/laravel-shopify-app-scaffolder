@@ -1,0 +1,23 @@
+{
+    "name": "humayoun-alamgir/laravel-shopify-app-scaffolder",
+    "description": "Scaffolding shopify apps with often repeated steps",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "require": {
+        "humayoun-alamgir/laravel-base-command": "0.2.1-alpha"
+    },
+    "autoload": {
+        "psr-4": {
+            "LV\\ShopifyAppScaffolder\\": "src/"
+        }
+    },
+    "extra" : {
+        "laravel": {
+            "providers": [
+                "LV\\ShopifyAppScaffolder\\ShopifyAppScaffolderServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,5 @@
+<?php
+Route::prefix('/app')->group(function () {
+    Route::get('/', 'Admin\ShopifyAdminController@home');
+    Route::get('{any}', 'Admin\ShopifyAdminController@home')->where(['any' => '.*']);
+});

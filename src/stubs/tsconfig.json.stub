@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "es6",
+        ],
+        "esModuleInterop": true,
+        "allowJs": true,
+        "sourceMap": true,
+        "strict": true,
+        "noEmit": true,
+        "importHelpers": true,
+        "resolveJsonModule": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "downlevelIteration": true,
+        "strictPropertyInitialization": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./resources/js/*"
+            ],
+            "@admin/*": [
+                "./resources/js/admin/*"
+            ],
+        },
+        "types": [
+            "@types/node",
+            "@types/webpack-env"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+    ]
+}
