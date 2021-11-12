@@ -6,7 +6,7 @@
     },
     "license": "MIT",
     "require": {
-        "humayoun-alamgir/laravel-base-command": "0.2.1-alpha"
+        "humayoun-alamgir/laravel-base-command": "1.0"
     },
     "autoload": {
         "psr-4": {
